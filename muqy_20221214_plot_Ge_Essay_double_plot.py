@@ -265,8 +265,8 @@ give_nan_value(
 ###################################################
 
 # region
-######## IWP gap AOD-COD ############################
 
+####### IWP\PC1 gap AOD-COD #############################
 # IWP gap AOD-COD
 dataarray_sort_split = DataArrayPreprocess(
     dataarray_main=data_IWP,
@@ -332,32 +332,6 @@ intercept_1 = np.exp(intercept_1)
 ) = dataarray_sort_split.dataarray_spatial_split()
 
 
-# ---- plot --------------------
-# plot_both(
-#     data_x=dataarray_AOD_gap_mean,
-#     data_y=dataarray_COD_gap_mean,
-#     main_gap=IWP_gap,
-#     slope=slope,
-#     intercept=intercept,
-#     yticks=[-2, -1, 0, 1, 2],
-#     data_x_label="ln(AOD)",
-#     data_y_label="ln(COD)",
-#     main_gap_name="IWP",
-#     x_var_name="AOD",
-#     y_var_name="COD",
-#     ymin=-5.8,
-#     ymax=2.4,
-#     xmin=-2.9,
-#     xmax=-1.1,
-#     linewidth=3,
-#     dataarray=slope_spatial_split,
-#     p_spatial_split=p_spatial_split,
-#     min=-0.94,
-#     max=0.94,
-#     var_name="slope",
-#     cmap_file="Color/HCF_color.txt",
-# )
-
 plot_both_pc1_iwp(
     # figure 1
     # line plot
@@ -368,7 +342,7 @@ plot_both_pc1_iwp(
     intercept_0=intercept_0,
     yticks_0=[-2, -1, 0, 1, 2],
     main_gap_name_0="IWP",
-    ymin_0=-6,
+    ymin_0=-5.8,
     ymax_0=2.4,
     xmin_0=-2.9,
     xmax_0=-1.1,
@@ -385,8 +359,8 @@ plot_both_pc1_iwp(
     slope_1=slope_1,
     intercept_1=intercept_1,
     yticks_1=[-1, 0, 1, 2],
-    main_gap_name_1="IWP",
-    ymin_1=-4.4,
+    main_gap_name_1="PC1",
+    ymin_1=-4.1,
     ymax_1=2.2,
     xmin_1=-2.9,
     xmax_1=-1.1,
@@ -404,66 +378,7 @@ plot_both_pc1_iwp(
     cmap_file="Color/PC1_color.txt",
 )
 
-####### PC gap AOD-COD #############################
-
-dataarray_sort_split = DataArrayPreprocess(
-    dataarray_main=data_PC,
-    dataarray_aux0=data_AOD,
-    dataarray_aux1=data_COD,
-    n=6,
-)
-
-# get data of line plot
-(
-    PC_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_COD_gap_mean,
-) = dataarray_sort_split.dataarray_sort_split()
-
-
-# linear regression of line plot
-(
-    slope,
-    intercept,
-    p_value,
-) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_COD_gap_mean
-)
-intercept = np.exp(intercept)
-
-# spatial split of linear regression
-(
-    slope_spatial_split,
-    p_spatial_split,
-) = dataarray_sort_split.dataarray_spatial_split()
-
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_COD_gap_mean,
-    main_gap=PC_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[-1, 0, 1, 2],
-    data_x_label="ln(AOD)",
-    data_y_label="ln(COD)",
-    main_gap_name="PC1",
-    x_var_name="AOD",
-    y_var_name="COD",
-    ymin=-4.1,
-    ymax=2.2,
-    xmin=-2.9,
-    xmax=-1.1,
-    linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-1.7,
-    max=1.7,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
-)
-
-####### IWP gap AOD-IPR #############################
+####### IWP\PC1 gap AOD-IPR #############################
 
 dataarray_sort_split = DataArrayPreprocess(
     dataarray_main=data_IWP,
@@ -475,55 +390,28 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     IWP_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_IPR_gap_mean,
+    dataarray_AOD_gap_mean_0,
+    dataarray_IPR_gap_mean_0,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_0,
+    intercept_0,
+    p_value_0,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_IPR_gap_mean
+    dataarray_AOD_gap_mean_0, dataarray_IPR_gap_mean_0
 )
-intercept = np.exp(intercept)
+intercept_0 = np.exp(intercept_0)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_0,
+    p_spatial_split_0,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_IPR_gap_mean,
-    main_gap=IWP_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[3.25, 3.3, 3.35, 3.4, 3.45],
-    data_x_label="ln(AOD)",
-    data_y_label="ln(IPR)",
-    main_gap_name="IWP",
-    x_var_name="AOD",
-    y_var_name="IPR",
-    ymin=3.0,
-    ymax=3.47,
-    xmin=-2.9,
-    xmax=-1.1,
-    linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-0.2,
-    max=0.2,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
-)
-
-####### PC1 gap AOD-IPR #############################
-
+# PC1 gap AOD-IPR
 dataarray_sort_split = DataArrayPreprocess(
     dataarray_main=data_PC,
     dataarray_aux0=data_AOD,
@@ -534,51 +422,72 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     PC_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_IPR_gap_mean,
+    dataarray_AOD_gap_mean_1,
+    dataarray_IPR_gap_mean_1,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_1,
+    intercept_1,
+    p_value_1,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_IPR_gap_mean
+    dataarray_AOD_gap_mean_1, dataarray_IPR_gap_mean_1
 )
-intercept = np.exp(intercept)
+intercept_1 = np.exp(intercept_1)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_1,
+    p_spatial_split_1,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_IPR_gap_mean,
-    main_gap=PC_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[3.34, 3.36, 3.38],
+
+plot_both_pc1_iwp(
+    # figure 1
+    # line plot
+    data_x_0=dataarray_AOD_gap_mean_0,
+    data_y_0=dataarray_IPR_gap_mean_0,
+    main_gap_0=IWP_gap,
+    slope_0=slope_0,
+    intercept_0=intercept_0,
+    yticks_0=[3.25, 3.3, 3.35, 3.4, 3.45],
+    main_gap_name_0="IWP",
+    ymin_0=3.0,
+    ymax_0=3.47,
+    xmin_0=-2.9,
+    xmax_0=-1.1,
+    # spatial split
+    dataarray_0=slope_spatial_split_0,
+    p_spatial_split_0=p_spatial_split_0,
+    vmin_0=-0.2,
+    vmax_0=0.2,
+    # figure 2
+    # line plot
+    data_x_1=dataarray_AOD_gap_mean_1,
+    data_y_1=dataarray_IPR_gap_mean_1,
+    main_gap_1=PC_gap,
+    slope_1=slope_1,
+    intercept_1=intercept_1,
+    yticks_1=[3.34, 3.36, 3.38],
+    main_gap_name_1="PC1",
+    ymin_1=3.28,
+    ymax_1=3.395,
+    xmin_1=-2.9,
+    xmax_1=-1.1,
+    # spatial split
+    dataarray_1=slope_spatial_split_1,
+    p_spatial_split_1=p_spatial_split_1,
+    vmin_1=-0.2,
+    vmax_1=0.2,
+    # Universal settings
     data_x_label="ln(AOD)",
     data_y_label="ln(IPR)",
-    main_gap_name="PC1",
     x_var_name="AOD",
     y_var_name="IPR",
-    ymin=3.28,
-    ymax=3.395,
-    xmin=-2.9,
-    xmax=-1.1,
     linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-0.2,
-    max=0.2,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
+    cmap_file="Color/PC1_color.txt",
 )
 
 ####### IWP gap AOD-HCF #############################
@@ -593,55 +502,29 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     IWP_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_HCF_gap_mean,
+    dataarray_AOD_gap_mean_0,
+    dataarray_HCF_gap_mean_0,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_0,
+    intercept_0,
+    p_value_0,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_HCF_gap_mean
+    dataarray_AOD_gap_mean_0, dataarray_HCF_gap_mean_0
 )
-intercept = np.exp(intercept)
+intercept_0 = np.exp(intercept_0)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_0,
+    p_spatial_split_0,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_HCF_gap_mean,
-    main_gap=IWP_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[0, 1, 2, 3],
-    data_x_label="ln(AOD)",
-    data_y_label="ln(HCF)",
-    main_gap_name="IWP",
-    x_var_name="AOD",
-    y_var_name="HCF",
-    ymin=-2.6,
-    ymax=3.5,
-    xmin=-2.9,
-    xmax=-1.1,
-    linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-2,
-    max=2,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
-)
 
-####### PC1 gap AOD-HCF #############################
-
+# PC1 gap AOD-HCF
 dataarray_sort_split = DataArrayPreprocess(
     dataarray_main=data_PC,
     dataarray_aux0=data_AOD,
@@ -652,51 +535,72 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     PC_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_HCF_gap_mean,
+    dataarray_AOD_gap_mean_1,
+    dataarray_HCF_gap_mean_1,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_1,
+    intercept_1,
+    p_value_1,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_HCF_gap_mean
+    dataarray_AOD_gap_mean_1, dataarray_HCF_gap_mean_1
 )
-intercept = np.exp(intercept)
+intercept_1 = np.exp(intercept_1)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_1,
+    p_spatial_split_1,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_HCF_gap_mean,
-    main_gap=PC_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[0, 1, 2, 3],
+
+plot_both_pc1_iwp(
+    # figure 1
+    # line plot
+    data_x_0=dataarray_AOD_gap_mean_0,
+    data_y_0=dataarray_HCF_gap_mean_0,
+    main_gap_0=IWP_gap,
+    slope_0=slope_0,
+    intercept_0=intercept_0,
+    yticks_0=[0, 1, 2, 3],
+    main_gap_name_0="IWP",
+    ymin_0=-2.6,
+    ymax_0=3.5,
+    xmin_0=-2.9,
+    xmax_0=-1.1,
+    # spatial split
+    dataarray_0=slope_spatial_split_0,
+    p_spatial_split_0=p_spatial_split_0,
+    vmin_0=-2,
+    vmax_0=2,
+    # figure 2
+    # line plot
+    data_x_1=dataarray_AOD_gap_mean_1,
+    data_y_1=dataarray_HCF_gap_mean_1,
+    main_gap_1=PC_gap,
+    slope_1=slope_1,
+    intercept_1=intercept_1,
+    yticks_1=[0, 1, 2, 3],
+    main_gap_name_1="PC1",
+    ymin_1=-2.6,
+    ymax_1=3.9,
+    xmin_1=-2.9,
+    xmax_1=-1.1,
+    # spatial split
+    dataarray_1=slope_spatial_split_1,
+    p_spatial_split_1=p_spatial_split_1,
+    vmin_1=-2,
+    vmax_1=2,
+    # Universal settings
     data_x_label="ln(AOD)",
     data_y_label="ln(HCF)",
-    main_gap_name="PC1",
     x_var_name="AOD",
     y_var_name="HCF",
-    ymin=-2.6,
-    ymax=3.9,
-    xmin=-2.9,
-    xmax=-1.1,
     linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-2,
-    max=2,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
+    cmap_file="Color/PC1_color.txt",
 )
 
 ####### PC1 gap AOD-IWP #############################
@@ -771,56 +675,28 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     IWP_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_PRE_gap_mean,
+    dataarray_AOD_gap_mean_0,
+    dataarray_PRE_gap_mean_0,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_0,
+    intercept_0,
+    p_value_0,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_PRE_gap_mean
+    dataarray_AOD_gap_mean_0, dataarray_PRE_gap_mean_0
 )
-intercept = np.exp(intercept)
+intercept_0 = np.exp(intercept_0)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_0,
+    p_spatial_split_0,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_PRE_gap_mean,
-    main_gap=IWP_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[-3, -2, -1, 0, 1],
-    data_x_label="ln(AOD)",
-    data_y_label="ln(PRE)",
-    main_gap_name="IWP",
-    x_var_name="AOD",
-    y_var_name="PRE",
-    ymin=-7,
-    ymax=1.1,
-    xmin=-2.9,
-    xmax=-1.1,
-    linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-3,
-    max=3,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
-)
-
-
 ####### PC1 gap AOD-PRE #############################
-
 dataarray_sort_split = DataArrayPreprocess(
     dataarray_main=data_PC,
     dataarray_aux0=data_AOD,
@@ -831,53 +707,73 @@ dataarray_sort_split = DataArrayPreprocess(
 # get data of line plot
 (
     PC_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_PRE_gap_mean,
+    dataarray_AOD_gap_mean_1,
+    dataarray_PRE_gap_mean_1,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_1,
+    intercept_1,
+    p_value_1,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_PRE_gap_mean
+    dataarray_AOD_gap_mean_1, dataarray_PRE_gap_mean_1
 )
-intercept = np.exp(intercept)
+intercept_1 = np.exp(intercept_1)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_1,
+    p_spatial_split_1,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_PRE_gap_mean,
-    main_gap=PC_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[-3, -2, -1, 0, 1],
+
+plot_both_pc1_iwp(
+    # figure 1
+    # line plot
+    data_x_0=dataarray_AOD_gap_mean_0,
+    data_y_0=dataarray_PRE_gap_mean_0,
+    main_gap_0=IWP_gap,
+    slope_0=slope_0,
+    intercept_0=intercept_0,
+    yticks_0=[-3, -2, -1, 0, 1],
+    main_gap_name_0="IWP",
+    ymin_0=-7.4,
+    ymax_0=1.1,
+    xmin_0=-2.9,
+    xmax_0=-1.1,
+    # spatial split
+    dataarray_0=slope_spatial_split_0,
+    p_spatial_split_0=p_spatial_split_0,
+    vmin_0=-3,
+    vmax_0=3,
+    # figure 2
+    # line plot
+    data_x_1=dataarray_AOD_gap_mean_1,
+    data_y_1=dataarray_PRE_gap_mean_1,
+    main_gap_1=PC_gap,
+    slope_1=slope_1,
+    intercept_1=intercept_1,
+    yticks_1=[-3, -2, -1, 0, 1],
+    main_gap_name_1="PC1",
+    ymin_1=-7.5,
+    ymax_1=1.1,
+    xmin_1=-2.9,
+    xmax_1=-1.1,
+    # spatial split
+    dataarray_1=slope_spatial_split_1,
+    p_spatial_split_1=p_spatial_split_1,
+    vmin_1=-3.2,
+    vmax_1=3.2,
+    # Universal settings
     data_x_label="ln(AOD)",
     data_y_label="ln(PRE)",
-    main_gap_name="PC1",
     x_var_name="AOD",
     y_var_name="PRE",
-    ymin=-7,
-    ymax=1.1,
-    xmin=-2.9,
-    xmax=-1.1,
     linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-3.2,
-    max=3.2,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
+    cmap_file="Color/PC1_color.txt",
 )
-
 
 ####### IWP gap AOD-CRF #############################
 
@@ -891,53 +787,26 @@ dataarray_sort_split = DataArrayPreprocessNoLog(
 # get data of line plot
 (
     IWP_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_CRF_gap_mean,
+    dataarray_AOD_gap_mean_0,
+    dataarray_CRF_gap_mean_0,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_0,
+    intercept_0,
+    p_value_0,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_CRF_gap_mean
+    dataarray_AOD_gap_mean_0, dataarray_CRF_gap_mean_0
 )
 # intercept = np.exp(intercept)
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_0,
+    p_spatial_split_0,
 ) = dataarray_sort_split.dataarray_spatial_split()
-
-# ---- plot --------------------
-plot_both_nolog(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_CRF_gap_mean,
-    main_gap=IWP_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[0, 20, 40, 60,],
-    data_x_label="AOD",
-    data_y_label="CRF",
-    main_gap_name="IWP",
-    x_var_name="AOD",
-    y_var_name="CRF",
-    ymin=-55,
-    ymax=72,
-    xmin=0.03,
-    xmax=0.32,
-    linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-400,
-    max=400,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
-)
-
 
 ####### PC1 gap AOD-CRF #############################
 
@@ -951,50 +820,71 @@ dataarray_sort_split = DataArrayPreprocessNoLog(
 # get data of line plot
 (
     PC_gap,
-    dataarray_AOD_gap_mean,
-    dataarray_CRF_gap_mean,
+    dataarray_AOD_gap_mean_1,
+    dataarray_CRF_gap_mean_1,
 ) = dataarray_sort_split.dataarray_sort_split()
 
 
 # linear regression of line plot
 (
-    slope,
-    intercept,
-    p_value,
+    slope_1,
+    intercept_1,
+    p_value_1,
 ) = dataarray_sort_split.linear_regression_lst(
-    dataarray_AOD_gap_mean, dataarray_CRF_gap_mean,
+    dataarray_AOD_gap_mean_1, dataarray_CRF_gap_mean_1,
 )
 
 # spatial split of linear regression
 (
-    slope_spatial_split,
-    p_spatial_split,
+    slope_spatial_split_1,
+    p_spatial_split_1,
 ) = dataarray_sort_split.dataarray_spatial_split()
 
-# ---- plot --------------------
-plot_both_nolog(
-    data_x=dataarray_AOD_gap_mean,
-    data_y=dataarray_CRF_gap_mean,
-    main_gap=PC_gap,
-    slope=slope,
-    intercept=intercept,
-    yticks=[0, 20, 40,],
+
+plot_both_nolog_pc1_iwp(
+    # figure 1
+    # line plot
+    data_x_0=dataarray_AOD_gap_mean_0,
+    data_y_0=dataarray_CRF_gap_mean_0,
+    main_gap_0=IWP_gap,
+    slope_0=slope_0,
+    intercept_0=intercept_0,
+    yticks_0=[0, 20, 40, 60,],
+    main_gap_name_0="IWP",
+    ymin_0=-65,
+    ymax_0=72,
+    xmin_0=0.03,
+    xmax_0=0.32,
+    # spatial split
+    dataarray_0=slope_spatial_split_0,
+    p_spatial_split_0=p_spatial_split_0,
+    vmin_0=-400,
+    vmax_0=400,
+    # figure 2
+    # line plot
+    data_x_1=dataarray_AOD_gap_mean_1,
+    data_y_1=dataarray_CRF_gap_mean_1,
+    main_gap_1=PC_gap,
+    slope_1=slope_1,
+    intercept_1=intercept_1,
+    yticks_1=[0, 20, 40,],
+    main_gap_name_1="PC1",
+    ymin_1=-10,
+    ymax_1=47,
+    xmin_1=0.03,
+    xmax_1=0.32,
+    # spatial split
+    dataarray_1=slope_spatial_split_1,
+    p_spatial_split_1=p_spatial_split_1,
+    vmin_1=-400,
+    vmax_1=400,
+    # Universal settings
     data_x_label="AOD",
     data_y_label="CRF",
-    main_gap_name="PC1",
     x_var_name="AOD",
     y_var_name="CRF",
-    ymin=-5,
-    ymax=47,
-    xmin=0.03,
-    xmax=0.32,
     linewidth=3,
-    dataarray=slope_spatial_split,
-    p_spatial_split=p_spatial_split,
-    min=-400,
-    max=400,
-    var_name="slope",
-    cmap_file="Color/HCF_color.txt",
+    cmap_file="Color/PC1_color.txt",
 )
 
 ####### IWP gap AOD-CRF_sw #############################
